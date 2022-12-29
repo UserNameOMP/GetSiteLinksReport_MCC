@@ -23,6 +23,7 @@ const CONFIG = {
       `,
       "sheetURL": `https://docs.google.com/spreadsheets/d/17bIUO95BcN2yBA2ZoWnSAfRnvKVd73AvIy7_Ho7B_Bs/`,
       "emailRecipient": `oleh.piddubnyi@groupone.com.pl`,
+      "emailErrorsRecipient": `oleh.piddubnyi@groupone.com.pl`,
       "sheetName": `ReportV1`
 }
 
@@ -188,11 +189,10 @@ function prettyPrint(obj){
 function runPerAccount(spreadsheet, sheet) {
   let report = getReport(CONFIG.campaign_asset_segmentedQuery);
   let result = transformReport(report);
-  
-  
+    
 //  prettyPrint(result);
 
-//  sendEmail(CONFIG.emailRecipient, CONFIG.sheetURL);
+  sendEmail(CONFIG.emailRecipient, CONFIG.sheetURL);
   exportReport(sheet, spreadsheet, result);
 }
 
@@ -202,7 +202,7 @@ function main() {
   var accountSelector = AdsManagerApp.accounts();
   var accountIterator = accountSelector.get();
   
-  // Gettin Spreadsheet and clearing it
+  // Getting Spreadsheet and clearing it
   const spreadsheet = SpreadsheetApp.openByUrl(CONFIG.sheetURL);
   const sheet = spreadsheet.getSheetByName(CONFIG.sheetName);
   sheet.clearContents();
